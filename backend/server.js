@@ -5,6 +5,8 @@ import { sequelize, testConnection } from './config/database.js';
 import testRoutes from './routes/test.js';
 import authRoutes from './routes/auth.js';
 import categoryRoutes from './routes/categories.js'
+import transactionRoutes from './routes/transactions.js'
+import settingsRoutes from './routes/settings.js'
 
 dotenv.config();
 
@@ -18,6 +20,8 @@ app.use(urlencoded({ extended: true }));
 app.use('/api', testRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/transactions', transactionRoutes);
+app.use('/api/settings', settingsRoutes);
 
 app.get('/', (req, res) => {
     res.json({
@@ -33,6 +37,10 @@ app.get('/', (req, res) => {
             categories: 'GET /api/categories',
             createCategory: 'POST /api/categories',
             initializeCategories: 'POST /api/categories/initialize',
+            transactions: 'GET /api/transactions',
+            transactionSummary: 'GET /api/transactions/summary',
+            settings: 'GET /api/settings',
+            currencies: 'GET /api/settings/currencies'
         }
     });
 });
@@ -41,7 +49,8 @@ app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).json({
         success: false,
-        message: 'Internal Server Error',
+        message: 'Something went wrong!',
+        error: process.env.NODE_ENV === 'development' ? err.message : {}
     });
 });
 

@@ -35,6 +35,17 @@ export const User = sequelize.define('User', {
     lastName: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    currency: {
+        type: DataTypes.STRING(3),
+        allowNull: false,
+        defaultValue: 'USD',
+        validate: {
+            len: {
+                args: [3, 3],
+                msg: 'Currency code must be 3 characters (ISO 4217)'
+            }
+        }
     }
 }, {
     tableName: 'users',
@@ -43,7 +54,7 @@ export const User = sequelize.define('User', {
 
 // Hash password before saving user
 User.beforeCreate(async (user) => {
-    if(user.password) {
+    if (user.password) {
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(user.password, salt);
     }
@@ -57,12 +68,12 @@ User.beforeUpdate(async (user) => {
 });
 
 // Method to compare password
-User.prototype.comparePassword = async function(candidatePassword) {
+User.prototype.comparePassword = async function (candidatePassword) {
     return await bcrypt.compare(candidatePassword, this.password);
 };
 
 // Method to return user data without password
-User.prototype.toJSON = function() {
+User.prototype.toJSON = function () {
     const values = { ...this.get() };
     delete values.password;
     return values;
