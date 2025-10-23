@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import { sequelize, testConnection } from './config/database.js';
 import testRoutes from './routes/test.js';
 import authRoutes from './routes/auth.js';
-import { register } from './controllers/authController.js';
+import categoryRoutes from './routes/categories.js'
 
 dotenv.config();
 
@@ -17,6 +17,7 @@ app.use(urlencoded({ extended: true }));
 
 app.use('/api', testRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/categories', categoryRoutes);
 
 app.get('/', (req, res) => {
     res.json({
@@ -28,7 +29,10 @@ app.get('/', (req, res) => {
             register: 'POST /api/auth/register',
             login: 'POST /api/auth/login',
             me: 'GET /api/auth/me',
-            logout: 'POST /api/auth/logout'
+            logout: 'POST /api/auth/logout',
+            categories: 'GET /api/categories',
+            createCategory: 'POST /api/categories',
+            initializeCategories: 'POST /api/categories/initialize',
         }
     });
 });
