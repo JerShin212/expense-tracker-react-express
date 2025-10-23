@@ -15,7 +15,7 @@ export default function ({ onToggle, onBack }) {
     const handleChange = (e) => {
         setFormData({
             ...formData,
-            [e.targte.name]: e.target.value
+            [e.target.name]: e.target.value
         });
         setError('');
     };

@@ -1,0 +1,362 @@
+import { useState, useEffect } from "react";
+import { getTransactions, createTransaction, updateTransaction, deleteTransaction, getTransactionSummary } from "../services/transactionService";
+import { getCategories } from "../services/categoryService";
+import TransactionSummary from "../components/TransactionSummary";
+import TransactionCard from "../components/TransactionCard";
+import TransactionModal from "../components/TransactionModal";
+import ConfirmModal from "../components/ConfirmModal";
+
+function Transactions() {
+    const [transactions, setTransactions] = useState([]);
+    const [summary, setSummary] = useState(null);
+    const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [summaryLoading, setSummaryLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+
+    // Filters
+    const [filters, setFilters] = useState({
+        type: 'all',
+        categoryId: 'all',
+        search: '',
+        startDate: '',
+        endDate: ''
+    });
+
+    // Modals
+    const [showModal, setShowModal] = useState(false);
+    const [editingTransaction, setEditingTransaction] = useState(null);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const [transactionToDelete, setTransactionToDelete] = useState(null);
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
+    useEffect(() => {
+        fetchTransactions();
+        fetchSummary();
+    }, [filters]);
+
+    const fetchCategories = async () => {
+        try {
+            const data = await getCategories();
+            setCategories(data.data || []);
+        } catch (err) {
+            console.error('Failed to load categories:', err);
+        }
+    };
+
+    const fetchTransactions = async () => {
+        try {
+            setLoading(true);
+            setError('');
+
+            const params = {};
+            if (filters.type !== 'all') params.type = filters.type;
+            if (filters.categoryId !== 'all') params.categoryId = filters.categoryId;
+            if (filters.search) params.search = filters.search;
+            if (filters.startDate) params.startDate = filters.startDate;
+            if (filters.endDate) params.endDate = filters.endDate;
+
+            const data = await getTransactions(params);
+            setTransactions(data.data || []);
+        } catch (err) {
+            setError(err.message || 'Failed to load transactions');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const fetchSummary = async () => {
+        try {
+            setSummaryLoading(true);
+            const params = {};
+            if (filters.startDate) params.startDate = filters.startDate;
+            if (filters.endDate) params.endDate = filters.endDate;
+
+            const data = await getTransactionSummary(params);
+            setSummary(data.data);
+        } catch (err) {
+            console.error('Failed to load summary:', err);
+        } finally {
+            setSummaryLoading(false);
+        }
+    };
+
+    const handleFilterChange = (key, value) => {
+        setFilters({
+            ...filters,
+            [key]: value
+        });
+    };
+
+    const handleCreateTransaction = () => {
+        setEditingTransaction(null);
+        setShowModal(true);
+    };
+
+    const handleEditTransaction = (transaction) => {
+        setEditingTransaction(transaction);
+        setShowModal(true);
+    };
+
+    const handleDeleteClick = (transaction) => {
+        setTransactionToDelete(transaction);
+        setShowDeleteConfirm(true);
+    };
+
+    const handleDeleteConfirm = async () => {
+        try {
+            await deleteTransaction(transactionToDelete.id);
+            setSuccess('Transaction deleted successfully!');
+            setShowDeleteConfirm(false);
+            setTransactionToDelete(null);
+            await fetchTransactions();
+            await fetchSummary();
+            setTimeout(() => setSuccess(''), 3000);
+        } catch (err) {
+            setError(err.message || 'Failed to delete transaction');
+            setShowDeleteConfirm(false);
+            setTransactionToDelete(null);
+        }
+    };
+
+    const handleModalSubmit = async (transactionData) => {
+        try {
+            if (editingTransaction) {
+                await updateTransaction(editingTransaction.id, transactionData);
+                setSuccess('Transaction updated successfully!');
+            } else {
+                await createTransaction(transactionData);
+                setSuccess('Transaction created successfully!');
+            }
+            setShowModal(false);
+            await fetchTransactions();
+            await fetchSummary();
+            setTimeout(() => setSuccess(''), 3000);
+        } catch (err) {
+            setError(err.message || 'Failed to save transaction');
+        }
+    };
+
+    const clearFilters = () => {
+        setFilters({
+            type: 'all',
+            categoryId: 'all',
+            search: '',
+            startDate: '',
+            endDate: ''
+        });
+    };
+
+    const hasActiveFilters = filters.type !== 'all' ||
+        filters.categoryId !== 'all' ||
+        filters.search ||
+        filters.startDate ||
+        filters.endDate;
+
+    return (
+        <div className="space-y-6">
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Transactions</h1>
+                    <p className="text-gray-600 mt-1">Track your income and expenses</p>
+                </div>
+                <button
+                    onClick={handleCreateTransaction}
+                    className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-200 font-semibold shadow-lg flex items-center justify-center"
+                >
+                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add Transaction
+                </button>
+            </div>
+
+            {/* Success/Error Messages */}
+            {success && (
+                <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+                    {success}
+                </div>
+            )}
+
+            {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                    {error}
+                </div>
+            )}
+
+            {/* Summary Cards */}
+            <TransactionSummary summary={summary} loading={summaryLoading} />
+
+            {/* Filters */}
+            <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
+                <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-800">Filters</h3>
+                    {hasActiveFilters && (
+                        <button
+                            onClick={clearFilters}
+                            className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
+                        >
+                            Clear All
+                        </button>
+                    )}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {/* Type Filter */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Type
+                        </label>
+                        <select
+                            value={filters.type}
+                            onChange={(e) => handleFilterChange('type', e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                        >
+                            <option value="all">All Types</option>
+                            <option value="expense">Expenses</option>
+                            <option value="income">Income</option>
+                        </select>
+                    </div>
+
+                    {/* Category Filter */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Category
+                        </label>
+                        <select
+                            value={filters.categoryId}
+                            onChange={(e) => handleFilterChange('categoryId', e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                        >
+                            <option value="all">All Categories</option>
+                            {categories.map((category) => (
+                                <option key={category.id} value={category.id}>
+                                    {category.icon} {category.name}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* Start Date */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            Start Date
+                        </label>
+                        <input
+                            type="date"
+                            value={filters.startDate}
+                            onChange={(e) => handleFilterChange('startDate', e.target.value)}
+                            max={new Date().toISOString().split('T')[0]}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                        />
+                    </div>
+
+                    {/* End Date */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                            End Date
+                        </label>
+                        <input
+                            type="date"
+                            value={filters.endDate}
+                            onChange={(e) => handleFilterChange('endDate', e.target.value)}
+                            max={new Date().toISOString().split('T')[0]}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                        />
+                    </div>
+                </div>
+
+                {/* Search */}
+                <div className="mt-4">
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Search
+                    </label>
+                    <input
+                        type="text"
+                        value={filters.search}
+                        onChange={(e) => handleFilterChange('search', e.target.value)}
+                        placeholder="Search by description..."
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                    />
+                </div>
+            </div>
+
+            {/* Loading State */}
+            {loading && (
+                <div className="flex justify-center items-center py-12">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
+                </div>
+            )}
+
+            {/* Empty State */}
+            {!loading && transactions.length === 0 && (
+                <div className="bg-white rounded-lg shadow-md p-8 sm:p-12 text-center">
+                    <div className="text-6xl mb-4">💳</div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2">No Transactions Yet</h3>
+                    <p className="text-gray-600 mb-6">
+                        {hasActiveFilters
+                            ? 'No transactions match your filters. Try adjusting your search criteria.'
+                            : 'Start tracking your finances by adding your first transaction'}
+                    </p>
+                    {!hasActiveFilters && (
+                        <button
+                            onClick={handleCreateTransaction}
+                            className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-200 font-semibold"
+                        >
+                            Add Transaction
+                        </button>
+                    )}
+                </div>
+            )}
+
+            {/* Transactions Grid */}
+            {!loading && transactions.length > 0 && (
+                <div>
+                    <div className="flex items-center justify-between mb-4">
+                        <p className="text-sm text-gray-600">
+                            Showing {transactions.length} transaction{transactions.length !== 1 ? 's' : ''}
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {transactions.map((transaction) => (
+                            <TransactionCard
+                                key={transaction.id}
+                                transaction={transaction}
+                                onEdit={handleEditTransaction}
+                                onDelete={handleDeleteClick}
+                            />
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* Transaction Modal */}
+            {showModal && (
+                <TransactionModal
+                    transaction={editingTransaction}
+                    onClose={() => setShowModal(false)}
+                    onSubmit={handleModalSubmit}
+                />
+            )}
+
+            {/* Delete Confirmation Modal */}
+            <ConfirmModal
+                isOpen={showDeleteConfirm}
+                title="Delete Transaction"
+                message={`Are you sure you want to delete this transaction? This action cannot be undone.`}
+                confirmText="Delete"
+                cancelText="Cancel"
+                type="danger"
+                onConfirm={handleDeleteConfirm}
+                onCancel={() => setShowDeleteConfirm(false)}
+            />
+        </div>
+    );
+}
+
+export default Transactions;
