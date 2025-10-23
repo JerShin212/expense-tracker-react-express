@@ -247,7 +247,7 @@ function LandingPage({ onGetStarted }) {
                         Start Free Today
                     </button>
                     <p className="mt-6 text-indigo-100">
-                        No credit card required • Cancel anytime • Free forever
+                        No credit card required • Free forever
                     </p>
                 </div>
             </section>
