@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import { AuthProvider, useAuth } from './context/AuthContext';
+import LandingPage from './components/LandingPage';
 import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 
 function AppContent() {
   const { isAuthenticated, loading } = useAuth();
-  const [showLogin, setShowLogin] = useState(true);
+  const [view, setView] = useState('landing'); // 'landing', 'login', 'register'
 
   if (loading) {
     return (
@@ -25,10 +26,28 @@ function AppContent() {
     return <Dashboard />;
   }
 
-  return showLogin ? (
-    <Login onToggle={() => setShowLogin(false)} />
-  ) : (
-    <Register onToggle={() => setShowLogin(true)} />
+  if (view === 'login') {
+    return (
+      <Login
+        onToggle={() => setView('register')}
+        onBack={() => setView('landing')}
+      />
+    );
+  }
+
+  if (view === 'register') {
+    return (
+      <Register
+        onToggle={() => setView('login')}
+        onBack={() => setView('landing')}
+      />
+    );
+  }
+
+  return (
+    <LandingPage
+      onGetStarted={(isLogin) => setView(isLogin ? 'login' : 'register')}
+    />
   );
 
 }
