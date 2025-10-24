@@ -13,7 +13,7 @@ function MonthlyTrendsChart({ data, loading, isDaily = false, currency }) {
 
     if (!data || data.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center h-64 text-gray-400">
+            <div className="flex flex-col items-center justify-center h-64 text-gray-400 dark:text-gray-500">
                 <svg className="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                 </svg>
@@ -24,31 +24,68 @@ function MonthlyTrendsChart({ data, loading, isDaily = false, currency }) {
 
     // Format data for chart
     const chartData = data.map(item => {
-        const label = isDaily ? formatDate(item.date) : formatMonth(item.month);
+        const label = isDaily ? formatDate(item?.date) : formatMonth(item?.month || item?.date);
         return {
             label,
-            income: parseFloat(item.income),
-            expense: parseFloat(item.expense),
-            balance: parseFloat(item.balance)
+            income: toNumber(item?.income),
+            expense: toNumber(item?.expense),
+            balance: toNumber(item?.balance)
         };
     });
 
-    function formatDate(dateStr) {
-        const date = new Date(dateStr);
+    function formatDate(dateValue) {
+        if (!dateValue) {
+            return 'N/A';
+        }
+
+        const date = new Date(dateValue);
+
+        if (Number.isNaN(date.getTime())) {
+            return typeof dateValue === 'string' ? dateValue : 'N/A';
+        }
+
         return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
     }
 
-    function formatMonth(monthStr) {
-        const [year, month] = monthStr.split('-');
-        const date = new Date(year, parseInt(month) - 1);
+    function formatMonth(monthValue) {
+        if (!monthValue) {
+            return 'N/A';
+        }
+
+        const monthStr = typeof monthValue === 'string' ? monthValue : String(monthValue);
+        const parts = monthStr.split('-');
+
+        if (parts.length < 2) {
+            return monthStr;
+        }
+
+        const [yearPart, monthPart] = parts;
+        const year = parseInt(yearPart, 10);
+        const month = parseInt(monthPart, 10);
+
+        if (Number.isNaN(year) || Number.isNaN(month)) {
+            return monthStr;
+        }
+
+        const date = new Date(year, month - 1);
+
+        if (Number.isNaN(date.getTime())) {
+            return monthStr;
+        }
+
         return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+    }
+
+    function toNumber(value) {
+        const numeric = typeof value === 'number' ? value : parseFloat(value);
+        return Number.isNaN(numeric) ? 0 : numeric;
     }
 
     const CustomTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
             return (
-                <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-200">
-                    <p className="font-semibold text-gray-800 mb-2">{label}</p>
+                <div className="bg-white dark:bg-gray-900 p-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+                    <p className="font-semibold text-gray-800 dark:text-gray-100 mb-2">{label}</p>
                     {payload.map((entry, index) => (
                         <p key={index} className="text-sm" style={{ color: entry.color }}>
                             {entry.name}: <span className="font-medium">{formatCurrency(entry.value, currency)}</span>

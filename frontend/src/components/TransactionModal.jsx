@@ -91,15 +91,15 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
                 {/* Header */}
-                <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between rounded-t-2xl">
-                    <h2 className="text-xl font-bold text-gray-800">
+                <div className="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between rounded-t-2xl">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">
                         {transaction ? 'Edit Transaction' : 'New Transaction'}
                     </h2>
                     <button
                         onClick={onClose}
-                        className="text-gray-400 hover:text-gray-600 transition"
+                        className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition"
                     >
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -110,14 +110,14 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="p-6 space-y-5">
                     {error && (
-                        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                        <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded-lg text-sm">
                             {error}
                         </div>
                     )}
 
                     {/* Type Selection */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Type
                         </label>
                         <div className="grid grid-cols-2 gap-3">
@@ -126,7 +126,7 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                                 onClick={() => handleTypeChange('expense')}
                                 className={`py-3 px-4 rounded-lg font-medium transition ${formData.type === 'expense'
                                         ? 'bg-red-600 text-white'
-                                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                        : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                                     }`}
                             >
                                 💸 Expense
@@ -136,7 +136,7 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                                 onClick={() => handleTypeChange('income')}
                                 className={`py-3 px-4 rounded-lg font-medium transition ${formData.type === 'income'
                                         ? 'bg-green-600 text-white'
-                                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                        : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                                     }`}
                             >
                                 💰 Income
@@ -146,11 +146,11 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
 
                     {/* Category Selection */}
                     <div>
-                        <label htmlFor="categoryId" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="categoryId" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Category
                         </label>
                         {loading ? (
-                            <div className="text-sm text-gray-500">Loading categories...</div>
+                            <div className="text-sm text-gray-500 dark:text-gray-400">Loading categories...</div>
                         ) : (
                             <select
                                 id="categoryId"
@@ -158,7 +158,7 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                                 value={formData.categoryId}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
                             >
                                 <option value="">Select a category</option>
                                 {filteredCategories.map((category) => (
@@ -172,7 +172,7 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
 
                     {/* Amount */}
                     <div>
-                        <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="amount" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Amount
                         </label>
                         <input
@@ -184,14 +184,14 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                             required
                             min="0.01"
                             step="0.01"
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
                             placeholder="0.00"
                         />
                     </div>
 
                     {/* Date */}
                     <div>
-                        <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="date" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Date
                         </label>
                         <input
@@ -202,13 +202,13 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                             onChange={handleChange}
                             required
                             max={new Date().toISOString().split('T')[0]}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
                         />
                     </div>
 
                     {/* Description */}
                     <div>
-                        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Description (Optional)
                         </label>
                         <textarea
@@ -218,10 +218,10 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                             onChange={handleChange}
                             rows="3"
                             maxLength="255"
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none placeholder-gray-300"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none placeholder-gray-300 dark:placeholder-gray-500 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
                             placeholder="Add a note about this transaction..."
                         />
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                             {formData.description.length}/255 characters
                         </p>
                     </div>
@@ -231,7 +231,7 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="flex-1 bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 transition duration-200 font-semibold"
+                            className="flex-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200 font-semibold"
                         >
                             Cancel
                         </button>

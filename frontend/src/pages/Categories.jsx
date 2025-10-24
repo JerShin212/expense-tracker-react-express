@@ -107,8 +107,8 @@ export default function Categories() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Categories</h1>
-                    <p className="text-gray-600 mt-1">Manage your expense and income categories</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-100">Categories</h1>
+                    <p className="text-gray-600 dark:text-gray-400 mt-1">Manage your expense and income categories</p>
                 </div>
                 <button
                     onClick={handleCreateCategory}
@@ -123,25 +123,25 @@ export default function Categories() {
 
             {/* Success Message */}
             {success && (
-                <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+                <div className="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 text-green-700 dark:text-green-200 px-4 py-3 rounded-lg">
                     {success}
                 </div>
             )}
 
             {/* Error Message */}
             {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded-lg">
                     {error}
                 </div>
             )}
 
             {/* Filter Tabs */}
-            <div className="bg-white rounded-lg shadow-md p-2 flex space-x-2">
+            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-2 flex space-x-2 border border-gray-200 dark:border-gray-700">
                 <button
                     onClick={() => setFilter('all')}
                     className={`flex-1 py-2 px-4 rounded-md font-medium transition ${filter === 'all'
                         ? 'bg-indigo-600 text-white'
-                        : 'text-gray-600 hover:bg-gray-100'
+                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                         }`}
                 >
                     All ({categories.length})
@@ -150,7 +150,7 @@ export default function Categories() {
                     onClick={() => setFilter('expense')}
                     className={`flex-1 py-2 px-4 rounded-md font-medium transition ${filter === 'expense'
                         ? 'bg-red-600 text-white'
-                        : 'text-gray-600 hover:bg-gray-100'
+                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                         }`}
                 >
                     Expenses ({expenseCategories.length})
@@ -159,7 +159,7 @@ export default function Categories() {
                     onClick={() => setFilter('income')}
                     className={`flex-1 py-2 px-4 rounded-md font-medium transition ${filter === 'income'
                         ? 'bg-green-600 text-white'
-                        : 'text-gray-600 hover:bg-gray-100'
+                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                         }`}
                 >
                     Income ({incomeCategories.length})
@@ -175,10 +175,10 @@ export default function Categories() {
 
             {/* Empty State */}
             {!loading && categories.length === 0 && (
-                <div className="bg-white rounded-lg shadow-md p-8 sm:p-12 text-center">
+                <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-8 sm:p-12 text-center border border-gray-200 dark:border-gray-700">
                     <div className="text-6xl mb-4">📁</div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">No Categories Yet</h3>
-                    <p className="text-gray-600 mb-6">Get started by initializing default categories</p>
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">No Categories Yet</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-6">Get started by initializing default categories</p>
                     <button
                         onClick={handleInitialize}
                         className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-200 font-semibold"

@@ -218,7 +218,7 @@ function generatePDF(doc, transactions, data) {
     } else {
         // Table headers
         const tableTop = currentY;
-        const dateX = 50;
+        const dateX = 55;
         const categoryX = 120;
         const descX = 250;
         const amountX = doc.page.width - 150;

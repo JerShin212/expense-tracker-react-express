@@ -6,9 +6,9 @@ function TransactionSummary({ summary, loading, currency }) {
         return (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 {[1, 2, 3].map((i) => (
-                    <div key={i} className="bg-white rounded-xl shadow-md p-6 animate-pulse">
-                        <div className="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
-                        <div className="h-8 bg-gray-200 rounded w-3/4"></div>
+                    <div key={i} className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-6 animate-pulse border border-gray-200 dark:border-gray-700">
+                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/2 mb-4"></div>
+                        <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
                     </div>
                 ))}
             </div>
@@ -18,11 +18,11 @@ function TransactionSummary({ summary, loading, currency }) {
     return (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {/* Income Card */}
-            <div className="bg-linear-to-br from-green-50 to-emerald-50 rounded-xl shadow-md p-6 border-l-4 border-green-500">
+            <div className="bg-linear-to-br from-green-50 to-emerald-50 dark:from-green-900 dark:to-emerald-800 rounded-xl shadow-md p-6 border-l-4 border-green-500 dark:border-green-400">
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-green-600 mb-1">Total Income</p>
-                        <p className="text-2xl sm:text-3xl font-bold text-green-700">
+                        <p className="text-sm font-medium text-green-600 dark:text-green-300 mb-1">Total Income</p>
+                        <p className="text-2xl sm:text-3xl font-bold text-green-700 dark:text-green-200">
                             {formatCurrency(summary?.totalIncome || 0, currency)}
                         </p>
                     </div>
@@ -35,11 +35,11 @@ function TransactionSummary({ summary, loading, currency }) {
             </div>
 
             {/* Expense Card */}
-            <div className="bg-linear-to-br from-red-50 to-pink-50 rounded-xl shadow-md p-6 border-l-4 border-red-500">
+            <div className="bg-linear-to-br from-red-50 to-pink-50 dark:from-red-900 dark:to-pink-900 rounded-xl shadow-md p-6 border-l-4 border-red-500 dark:border-red-400">
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className="text-sm font-medium text-red-600 mb-1">Total Expenses</p>
-                        <p className="text-2xl sm:text-3xl font-bold text-red-700">
+                        <p className="text-sm font-medium text-red-600 dark:text-red-300 mb-1">Total Expenses</p>
+                        <p className="text-2xl sm:text-3xl font-bold text-red-700 dark:text-red-200">
                             {formatCurrency(summary?.totalExpense || 0, currency)}
                         </p>
                     </div>
@@ -53,16 +53,16 @@ function TransactionSummary({ summary, loading, currency }) {
 
             {/* Balance Card */}
             <div className={`bg-linear-to-br ${(summary?.balance || 0) >= 0
-                    ? 'from-indigo-50 to-purple-50 border-indigo-500'
-                    : 'from-orange-50 to-red-50 border-orange-500'
+                    ? 'from-indigo-50 to-purple-50 dark:from-indigo-900 dark:to-purple-900 border-indigo-500 dark:border-indigo-400'
+                    : 'from-orange-50 to-red-50 dark:from-orange-900 dark:to-red-900 border-orange-500 dark:border-orange-400'
                 } rounded-xl shadow-md p-6 border-l-4`}>
                 <div className="flex items-center justify-between">
                     <div>
-                        <p className={`text-sm font-medium mb-1 ${(summary?.balance || 0) >= 0 ? 'text-indigo-600' : 'text-orange-600'
+                        <p className={`text-sm font-medium mb-1 ${(summary?.balance || 0) >= 0 ? 'text-indigo-600 dark:text-indigo-300' : 'text-orange-600 dark:text-orange-300'
                             }`}>
                             Balance
                         </p>
-                        <p className={`text-2xl sm:text-3xl font-bold ${(summary?.balance || 0) >= 0 ? 'text-indigo-700' : 'text-orange-700'
+                        <p className={`text-2xl sm:text-3xl font-bold ${(summary?.balance || 0) >= 0 ? 'text-indigo-700 dark:text-indigo-200' : 'text-orange-700 dark:text-orange-200'
                             }`}>
                             {formatCurrency(summary?.balance || 0, currency)}
                         </p>

@@ -58,15 +58,15 @@ function CategoryModal({ category, onClose, onSubmit }) {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
                 {/* Header */}
-                <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between rounded-t-2xl">
-                    <h2 className="text-xl font-bold text-gray-800">
+                <div className="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between rounded-t-2xl">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">
                         {category ? 'Edit Category' : 'New Category'}
                     </h2>
                     <button
                         onClick={onClose}
-                        className="text-gray-400 hover:text-gray-600 transition"
+                        className="text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition"
                     >
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -77,14 +77,14 @@ function CategoryModal({ category, onClose, onSubmit }) {
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="p-6 space-y-5">
                     {error && (
-                        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+                        <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded-lg text-sm">
                             {error}
                         </div>
                     )}
 
                     {/* Category Name */}
                     <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Category Name
                         </label>
                         <input
@@ -95,14 +95,14 @@ function CategoryModal({ category, onClose, onSubmit }) {
                             onChange={handleChange}
                             required
                             maxLength={50}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition placeholder-gray-300"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition placeholder-gray-300 dark:placeholder-gray-500 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
                             placeholder="e.g., Groceries"
                         />
                     </div>
 
                     {/* Type */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Type
                         </label>
                         <div className="grid grid-cols-2 gap-3">
@@ -111,7 +111,7 @@ function CategoryModal({ category, onClose, onSubmit }) {
                                 onClick={() => setFormData({ ...formData, type: 'expense' })}
                                 className={`py-3 px-4 rounded-lg font-medium transition ${formData.type === 'expense'
                                     ? 'bg-red-600 text-white'
-                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                                     }`}
                             >
                                 💸 Expense
@@ -121,7 +121,7 @@ function CategoryModal({ category, onClose, onSubmit }) {
                                 onClick={() => setFormData({ ...formData, type: 'income' })}
                                 className={`py-3 px-4 rounded-lg font-medium transition ${formData.type === 'income'
                                     ? 'bg-green-600 text-white'
-                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
                                     }`}
                             >
                                 💰 Income
@@ -131,7 +131,7 @@ function CategoryModal({ category, onClose, onSubmit }) {
 
                     {/* Color */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Color
                         </label>
                         <div className="grid grid-cols-8 gap-2">
@@ -150,18 +150,18 @@ function CategoryModal({ category, onClose, onSubmit }) {
 
                     {/* Icon */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Icon
                         </label>
-                        <div className="grid grid-cols-10 gap-2 max-h-40 overflow-y-auto border border-gray-200 rounded-lg p-2">
+                        <div className="grid grid-cols-10 gap-2 max-h-40 overflow-y-auto border border-gray-200 dark:border-gray-700 rounded-lg p-2">
                             {icons.map((icon) => (
                                 <button
                                     key={icon}
                                     type="button"
                                     onClick={() => setFormData({ ...formData, icon })}
                                     className={`text-2xl p-2 rounded-lg transition-all flex items-center justify-center ${formData.icon === icon
-                                            ? 'bg-indigo-100 ring-2 ring-indigo-500'
-                                            : 'hover:bg-gray-100'
+                                            ? 'bg-indigo-100 dark:bg-indigo-900/40 ring-2 ring-indigo-500 dark:ring-indigo-400'
+                                            : 'hover:bg-gray-100 dark:hover:bg-gray-800'
                                         }`}
                                 >
                                     {icon}
@@ -171,10 +171,10 @@ function CategoryModal({ category, onClose, onSubmit }) {
                     </div>
 
                     {/* Preview */}
-                    <div className="bg-gray-50 rounded-lg p-4">
-                        <p className="text-sm font-medium text-gray-700 mb-3">Preview</p>
+                    <div className="bg-gray-50 dark:bg-gray-900/60 rounded-lg p-4">
+                        <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Preview</p>
                         <div
-                            className="bg-white rounded-lg p-4 border-t-4 flex items-center space-x-3"
+                            className="bg-white dark:bg-gray-900 rounded-lg p-4 border-t-4 flex items-center space-x-3"
                             style={{ borderColor: formData.color }}
                         >
                             <div
@@ -184,10 +184,10 @@ function CategoryModal({ category, onClose, onSubmit }) {
                                 {formData.icon}
                             </div>
                             <div>
-                                <p className="font-semibold text-gray-800">
+                                <p className="font-semibold text-gray-800 dark:text-gray-100">
                                     {formData.name || 'Category Name'}
                                 </p>
-                                <p className="text-sm text-gray-500 capitalize">{formData.type}</p>
+                                <p className="text-sm text-gray-500 dark:text-gray-400 capitalize">{formData.type}</p>
                             </div>
                         </div>
                     </div>
@@ -197,7 +197,7 @@ function CategoryModal({ category, onClose, onSubmit }) {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="flex-1 bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 transition duration-200 font-semibold"
+                            className="flex-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200 font-semibold"
                         >
                             Cancel
                         </button>

@@ -204,17 +204,17 @@ function DashboardHome() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Dashboard</h1>
-                    <p className="text-gray-600 mt-1">Overview of your financial health</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-100">Dashboard</h1>
+                    <p className="text-gray-600 dark:text-gray-400 mt-1">Overview of your financial health</p>
                 </div>
 
                 {/* Date Filter */}
-                <div className="flex bg-white rounded-lg shadow-md p-1">
+                <div className="flex bg-white dark:bg-gray-900 rounded-lg shadow-md p-1 border border-gray-200 dark:border-gray-700">
                     <button
                         onClick={() => setDateFilter('month')}
                         className={`px-4 py-2 rounded-md text-sm font-medium transition ${dateFilter === 'month'
                             ? 'bg-indigo-600 text-white'
-                            : 'text-gray-600 hover:bg-gray-100'
+                            : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                             }`}
                     >
                         This Month
@@ -223,7 +223,7 @@ function DashboardHome() {
                         onClick={() => setDateFilter('year')}
                         className={`px-4 py-2 rounded-md text-sm font-medium transition ${dateFilter === 'year'
                             ? 'bg-indigo-600 text-white'
-                            : 'text-gray-600 hover:bg-gray-100'
+                            : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                             }`}
                     >
                         This Year
@@ -232,7 +232,7 @@ function DashboardHome() {
                         onClick={() => setDateFilter('all')}
                         className={`px-4 py-2 rounded-md text-sm font-medium transition ${dateFilter === 'all'
                             ? 'bg-indigo-600 text-white'
-                            : 'text-gray-600 hover:bg-gray-100'
+                            : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                             }`}
                     >
                         All Time
@@ -242,7 +242,7 @@ function DashboardHome() {
 
             {/* Error Message */}
             {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded-lg">
                     {error}
                 </div>
             )}
@@ -250,19 +250,19 @@ function DashboardHome() {
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 {/* Total Income */}
-                <div className="bg-linear-to-br from-green-50 to-emerald-50 rounded-xl shadow-md p-6 border-l-4 border-green-500">
+                <div className="bg-linear-to-br from-green-50 to-emerald-50 dark:from-green-900 dark:to-emerald-800 rounded-xl shadow-md p-6 border-l-4 border-green-500 dark:border-green-400">
                     {summaryLoading ? (
                         <div className="animate-pulse">
-                            <div className="h-4 bg-green-200 rounded w-1/2 mb-3"></div>
-                            <div className="h-8 bg-green-200 rounded w-3/4"></div>
+                            <div className="h-4 bg-green-200 dark:bg-green-900/60 rounded w-1/2 mb-3"></div>
+                            <div className="h-8 bg-green-200 dark:bg-green-900/60 rounded w-3/4"></div>
                         </div>
                     ) : (
                         <>
-                            <p className="text-sm font-medium text-green-600 mb-1">Total Income</p>
-                            <p className="text-2xl font-bold text-green-700">
+                            <p className="text-sm font-medium text-green-600 dark:text-green-300 mb-1">Total Income</p>
+                            <p className="text-2xl font-bold text-green-700 dark:text-green-200">
                                 {formatCurrency(summary?.totalIncome || 0, currency)}
                             </p>
-                            <p className="text-xs text-green-600 mt-2">
+                            <p className="text-xs text-green-600 dark:text-green-300 mt-2">
                                 {summary?.incomeCount || 0} transactions
                             </p>
                         </>
@@ -270,19 +270,19 @@ function DashboardHome() {
                 </div>
 
                 {/* Total Expenses */}
-                <div className="bg-linear-to-br from-red-50 to-pink-50 rounded-xl shadow-md p-6 border-l-4 border-red-500">
+                <div className="bg-linear-to-br from-red-50 to-pink-50 dark:from-red-900 dark:to-pink-900 rounded-xl shadow-md p-6 border-l-4 border-red-500 dark:border-red-400">
                     {summaryLoading ? (
                         <div className="animate-pulse">
-                            <div className="h-4 bg-red-200 rounded w-1/2 mb-3"></div>
-                            <div className="h-8 bg-red-200 rounded w-3/4"></div>
+                            <div className="h-4 bg-red-200 dark:bg-red-900/60 rounded w-1/2 mb-3"></div>
+                            <div className="h-8 bg-red-200 dark:bg-red-900/60 rounded w-3/4"></div>
                         </div>
                     ) : (
                         <>
-                            <p className="text-sm font-medium text-red-600 mb-1">Total Expenses</p>
-                            <p className="text-2xl font-bold text-red-700">
+                            <p className="text-sm font-medium text-red-600 dark:text-red-300 mb-1">Total Expenses</p>
+                            <p className="text-2xl font-bold text-red-700 dark:text-red-200">
                                 {formatCurrency(summary?.totalExpense || 0, currency)}
                             </p>
-                            <p className="text-xs text-red-600 mt-2">
+                            <p className="text-xs text-red-600 dark:text-red-300 mt-2">
                                 {summary?.expenseCount || 0} transactions
                             </p>
                         </>
@@ -291,25 +291,25 @@ function DashboardHome() {
 
                 {/* Balance */}
                 <div className={`bg-linear-to-br ${(summary?.balance || 0) >= 0
-                    ? 'from-indigo-50 to-purple-50 border-indigo-500'
-                    : 'from-orange-50 to-red-50 border-orange-500'
+                    ? 'from-indigo-50 to-purple-50 dark:from-indigo-900 dark:to-purple-900 border-indigo-500 dark:border-indigo-400'
+                    : 'from-orange-50 to-red-50 dark:from-orange-900 dark:to-red-900 border-orange-500 dark:border-orange-400'
                     } rounded-xl shadow-md p-6 border-l-4`}>
                     {summaryLoading ? (
                         <div className="animate-pulse">
-                            <div className="h-4 bg-indigo-200 rounded w-1/2 mb-3"></div>
-                            <div className="h-8 bg-indigo-200 rounded w-3/4"></div>
+                            <div className="h-4 bg-indigo-200 dark:bg-indigo-900/40 rounded w-1/2 mb-3"></div>
+                            <div className="h-8 bg-indigo-200 dark:bg-indigo-900/40 rounded w-3/4"></div>
                         </div>
                     ) : (
                         <>
-                            <p className={`text-sm font-medium mb-1 ${(summary?.balance || 0) >= 0 ? 'text-indigo-600' : 'text-orange-600'
+                            <p className={`text-sm font-medium mb-1 ${(summary?.balance || 0) >= 0 ? 'text-indigo-600 dark:text-indigo-300' : 'text-orange-600 dark:text-orange-300'
                                 }`}>
                                 Balance
                             </p>
-                            <p className={`text-2xl font-bold ${(summary?.balance || 0) >= 0 ? 'text-indigo-700' : 'text-orange-700'
+                            <p className={`text-2xl font-bold ${(summary?.balance || 0) >= 0 ? 'text-indigo-700 dark:text-indigo-200' : 'text-orange-700 dark:text-orange-200'
                                 }`}>
                                 {formatCurrency(summary?.balance || 0, currency)}
                             </p>
-                            <p className={`text-xs mt-2 ${(summary?.balance || 0) >= 0 ? 'text-indigo-600' : 'text-orange-600'
+                            <p className={`text-xs mt-2 ${(summary?.balance || 0) >= 0 ? 'text-indigo-600 dark:text-indigo-300' : 'text-orange-600 dark:text-orange-300'
                                 }`}>
                                 {summary?.transactionCount || 0} total transactions
                             </p>
@@ -318,19 +318,19 @@ function DashboardHome() {
                 </div>
 
                 {/* Average Expense */}
-                <div className="bg-linear-to-br from-purple-50 to-pink-50 rounded-xl shadow-md p-6 border-l-4 border-purple-500">
+                <div className="bg-linear-to-br from-purple-50 to-pink-50 dark:from-purple-900 dark:to-pink-900 rounded-xl shadow-md p-6 border-l-4 border-purple-500 dark:border-purple-400">
                     {summaryLoading ? (
                         <div className="animate-pulse">
-                            <div className="h-4 bg-purple-200 rounded w-1/2 mb-3"></div>
-                            <div className="h-8 bg-purple-200 rounded w-3/4"></div>
+                            <div className="h-4 bg-purple-200 dark:bg-purple-900/50 rounded w-1/2 mb-3"></div>
+                            <div className="h-8 bg-purple-200 dark:bg-purple-900/50 rounded w-3/4"></div>
                         </div>
                     ) : (
                         <>
-                            <p className="text-sm font-medium text-purple-600 mb-1">Avg Expense</p>
-                            <p className="text-2xl font-bold text-purple-700">
+                            <p className="text-sm font-medium text-purple-600 dark:text-purple-300 mb-1">Avg Expense</p>
+                            <p className="text-2xl font-bold text-purple-700 dark:text-purple-200">
                                 {formatCurrency(summary?.avgExpense || 0, currency)}
                             </p>
-                            <p className="text-xs text-purple-600 mt-2">
+                            <p className="text-xs text-purple-600 dark:text-purple-300 mt-2">
                                 per transaction
                             </p>
                         </>
@@ -341,14 +341,14 @@ function DashboardHome() {
             {/* Charts Row */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Expense Breakdown */}
-                <div className="bg-white rounded-xl shadow-lg p-6">
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">Expense Breakdown</h2>
+                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Expense Breakdown</h2>
                     <CategoryPieChart data={expenseBreakdown} loading={breakdownLoading} currency={currency} />
                 </div>
 
                 {/* Trends Chart - Dynamic */}
-                <div className="bg-white rounded-xl shadow-lg p-6">
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">{getTrendsTitle()}</h2>
+                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">{getTrendsTitle()}</h2>
                     <MonthlyTrendsChart
                         data={trendsData}
                         loading={trendsLoading}
@@ -361,8 +361,8 @@ function DashboardHome() {
             {/* Bottom Row */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Top Spending Categories */}
-                <div className="bg-white rounded-xl shadow-lg p-6">
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">Top Spending Categories</h2>
+                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Top Spending Categories</h2>
                     <TopCategoriesList
                         categories={topExpenses}
                         loading={topLoading}
@@ -372,8 +372,8 @@ function DashboardHome() {
                 </div>
 
                 {/* Recent Transactions */}
-                <div className="bg-white rounded-xl shadow-lg p-6">
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">Recent Transactions</h2>
+                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                    <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Recent Transactions</h2>
                     <RecentTransactionsList
                         transactions={recentTransactions}
                         loading={recentLoading}

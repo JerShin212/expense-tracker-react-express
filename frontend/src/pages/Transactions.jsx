@@ -253,14 +253,14 @@ function Transactions() {
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">Transactions</h1>
-                    <p className="text-gray-600 mt-1">Track your income and expenses</p>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-100">Transactions</h1>
+                    <p className="text-gray-600 dark:text-gray-400 mt-1">Track your income and expenses</p>
                 </div>
                 <div className="flex gap-2">
                     <button
                         onClick={handleExportPDF}
                         disabled={exportLoading || transactions.length === 0}
-                        className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-200 font-semibold shadow-lg flex items-center justify-center disabled:bg-gray-400 disabled:cursor-not-allowed"
+                        className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-200 font-semibold shadow-lg flex items-center justify-center disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed"
                     >
                         {exportLoading ? (
                             <>
@@ -293,13 +293,13 @@ function Transactions() {
 
             {/* Success/Error Messages */}
             {success && (
-                <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
+                <div className="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 text-green-700 dark:text-green-200 px-4 py-3 rounded-lg">
                     {success}
                 </div>
             )}
 
             {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded-lg">
                     {error}
                 </div>
             )}
@@ -308,19 +308,19 @@ function Transactions() {
             <div className="flex flex-wrap gap-2">
                 <button
                     onClick={() => setQuickFilter('month')}
-                    className="px-4 py-2 bg-white border-2 border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition duration-200 font-medium text-sm"
+                    className="px-4 py-2 bg-white dark:bg-gray-900 border-2 border-indigo-600 dark:border-indigo-500/70 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-800 transition duration-200 font-medium text-sm"
                 >
                     This Month
                 </button>
                 <button
                     onClick={() => setQuickFilter('year')}
-                    className="px-4 py-2 bg-white border-2 border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition duration-200 font-medium text-sm"
+                    className="px-4 py-2 bg-white dark:bg-gray-900 border-2 border-indigo-600 dark:border-indigo-500/70 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-800 transition duration-200 font-medium text-sm"
                 >
                     This Year
                 </button>
                 <button
                     onClick={() => setQuickFilter('all')}
-                    className="px-4 py-2 bg-white border-2 border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition duration-200 font-medium text-sm"
+                    className="px-4 py-2 bg-white dark:bg-gray-900 border-2 border-indigo-600 dark:border-indigo-500/70 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-800 transition duration-200 font-medium text-sm"
                 >
                     All Time
                 </button>
@@ -330,13 +330,13 @@ function Transactions() {
             <TransactionSummary summary={summary} loading={summaryLoading} currency={currency} />
 
             {/* Filters */}
-            <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
+            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
                 <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-semibold text-gray-800">Filters</h3>
+                    <h3 className="font-semibold text-gray-800 dark:text-gray-100">Filters</h3>
                     {hasActiveFilters && (
                         <button
                             onClick={clearFilters}
-                            className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
+                            className="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium"
                         >
                             Clear Filters
                         </button>
@@ -346,13 +346,13 @@ function Transactions() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {/* Type Filter */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Type
                         </label>
                         <select
                             value={filters.type}
                             onChange={(e) => handleFilterChange('type', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
                         >
                             <option value="all">All Types</option>
                             <option value="expense">Expenses</option>
@@ -362,13 +362,13 @@ function Transactions() {
 
                     {/* Category Filter */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Category
                         </label>
                         <select
                             value={filters.categoryId}
                             onChange={(e) => handleFilterChange('categoryId', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
                         >
                             <option value="all">All Categories</option>
                             {categories.map((category) => (
@@ -381,7 +381,7 @@ function Transactions() {
 
                     {/* Start Date */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             Start Date
                         </label>
                         <input
@@ -389,13 +389,13 @@ function Transactions() {
                             value={filters.startDate}
                             onChange={(e) => handleFilterChange('startDate', e.target.value)}
                             max={new Date().toISOString().split('T')[0]}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
                         />
                     </div>
 
                     {/* End Date */}
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             End Date
                         </label>
                         <input
@@ -403,14 +403,14 @@ function Transactions() {
                             value={filters.endDate}
                             onChange={(e) => handleFilterChange('endDate', e.target.value)}
                             max={new Date().toISOString().split('T')[0]}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
                         />
                     </div>
                 </div>
 
                 {/* Search */}
                 <div className="mt-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                         Search
                     </label>
                     <input
@@ -418,7 +418,7 @@ function Transactions() {
                         value={filters.search}
                         onChange={(e) => handleFilterChange('search', e.target.value)}
                         placeholder="Search by description..."
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none placeholder-gray-300"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none placeholder-gray-300 dark:placeholder-gray-500"
                     />
                 </div>
             </div>
@@ -432,10 +432,10 @@ function Transactions() {
 
             {/* Empty State */}
             {!loading && transactions.length === 0 && (
-                <div className="bg-white rounded-lg shadow-md p-8 sm:p-12 text-center">
+                <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-8 sm:p-12 text-center border border-gray-200 dark:border-gray-700">
                     <div className="text-6xl mb-4">💳</div>
-                    <h3 className="text-xl font-semibold text-gray-800 mb-2">No Transactions Yet</h3>
-                    <p className="text-gray-600 mb-6">
+                    <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">No Transactions Yet</h3>
+                    <p className="text-gray-600 dark:text-gray-400 mb-6">
                         {hasActiveFilters || filters.startDate || filters.endDate
                             ? 'No transactions match your filters. Try adjusting your search criteria.'
                             : 'Start tracking your finances by adding your first transaction'}
@@ -455,7 +455,7 @@ function Transactions() {
             {!loading && transactions.length > 0 && (
                 <div>
                     <div className="flex items-center justify-between mb-4">
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
                             Showing {transactions.length} transaction{transactions.length !== 1 ? 's' : ''}
                         </p>
                     </div>

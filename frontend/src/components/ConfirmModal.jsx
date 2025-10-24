@@ -4,18 +4,18 @@ export default function ConfirmModal({ isOpen, title, message, confirmText, canc
     const typeStyles = {
         danger: {
             button: 'bg-red-600 hover:bg-red-700',
-            icon: 'text-red-600',
-            bg: 'bg-red-50'
+            icon: 'text-red-600 dark:text-red-300',
+            bg: 'bg-red-50 dark:bg-red-900/30'
         },
         warning: {
             button: 'bg-yellow-600 hover:bg-yellow-700',
-            icon: 'text-yellow-600',
-            bg: 'bg-yellow-50'
+            icon: 'text-yellow-600 dark:text-yellow-300',
+            bg: 'bg-yellow-50 dark:bg-yellow-900/30'
         },
         info: {
             button: 'bg-blue-600 hover:bg-blue-700',
-            icon: 'text-blue-600',
-            bg: 'bg-blue-50'
+            icon: 'text-blue-600 dark:text-blue-300',
+            bg: 'bg-blue-50 dark:bg-blue-900/30'
         }
     };
 
@@ -23,7 +23,7 @@ export default function ConfirmModal({ isOpen, title, message, confirmText, canc
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full border border-gray-200 dark:border-gray-700">
                 <div className="p-6">
                     {/* Icon */}
                     <div className={`${styles.bg} w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4`}>
@@ -45,12 +45,12 @@ export default function ConfirmModal({ isOpen, title, message, confirmText, canc
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-xl font-bold text-gray-900 text-center mb-2">
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 text-center mb-2">
                         {title}
                     </h3>
 
                     {/* Message */}
-                    <p className="text-gray-600 text-center mb-6">
+                    <p className="text-gray-600 dark:text-gray-400 text-center mb-6">
                         {message}
                     </p>
 
@@ -58,7 +58,7 @@ export default function ConfirmModal({ isOpen, title, message, confirmText, canc
                     <div className="flex space-x-3">
                         <button
                             onClick={onCancel}
-                            className="flex-1 bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 transition duration-200 font-semibold"
+                            className="flex-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 py-3 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition duration-200 font-semibold"
                         >
                             {cancelText || 'Cancel'}
                         </button>

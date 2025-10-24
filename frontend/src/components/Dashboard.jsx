@@ -16,7 +16,7 @@ function Dashboard() {
 
     const handleTabChange = (tab) => {
         setActiveTab(tab);
-        setIsMobileMenuOpen(false); // Close drawer when tab is selected
+        setIsMobileMenuOpen(false);
     };
 
     const closeMobileMenu = () => {
@@ -24,16 +24,16 @@ function Dashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
             {/* Navigation Bar */}
-            <nav className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
+            <nav className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 sticky top-0 z-40">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
                         <div className="flex items-center">
                             {/* Mobile Menu Button */}
                             <button
                                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                                className="lg:hidden mr-3 p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none"
+                                className="lg:hidden mr-3 p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none"
                             >
                                 <svg
                                     className="h-6 w-6"
@@ -57,7 +57,7 @@ function Dashboard() {
                             </h1>
                         </div>
                         <div className="flex items-center space-x-2 sm:space-x-4">
-                            <span className="text-gray-700 text-sm sm:text-base hidden sm:inline">
+                            <span className="text-gray-700 dark:text-gray-300 text-sm sm:text-base hidden sm:inline">
                                 Hello, {user?.firstName || user?.email}
                             </span>
                             <button
@@ -84,13 +84,13 @@ function Dashboard() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                     {/* Sidebar Navigation - Desktop */}
                     <div className="hidden lg:block lg:col-span-3">
-                        <div className="bg-white rounded-xl shadow-md p-4 sticky top-24">
+                        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 sticky top-24 border border-gray-200 dark:border-gray-700">
                             <nav className="space-y-2">
                                 <button
                                     onClick={() => handleTabChange('home')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'home'
-                                            ? 'bg-indigo-50 text-indigo-600'
-                                            : 'text-gray-700 hover:bg-gray-50'
+                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,8 +102,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('transactions')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'transactions'
-                                            ? 'bg-indigo-50 text-indigo-600'
-                                            : 'text-gray-700 hover:bg-gray-50'
+                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,8 +115,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('categories')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'categories'
-                                            ? 'bg-indigo-50 text-indigo-600'
-                                            : 'text-gray-700 hover:bg-gray-50'
+                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,8 +128,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('settings')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'settings'
-                                            ? 'bg-indigo-50 text-indigo-600'
-                                            : 'text-gray-700 hover:bg-gray-50'
+                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -142,9 +142,9 @@ function Dashboard() {
 
                             {/* Ad Space - Sidebar */}
                             <div className="mt-6">
-                                <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-4 text-center">
-                                    <p className="text-gray-400 text-xs mb-2">Advertisement</p>
-                                    <div className="h-48 bg-white rounded"></div>
+                                <div className="bg-gray-50 dark:bg-gray-900 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-4 text-center">
+                                    <p className="text-gray-400 dark:text-gray-500 text-xs mb-2">Advertisement</p>
+                                    <div className="h-48 bg-white dark:bg-gray-800 rounded"></div>
                                 </div>
                             </div>
                         </div>
@@ -152,7 +152,7 @@ function Dashboard() {
 
                     {/* Mobile Drawer Navigation */}
                     <div
-                        className={`fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+                        className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-xl z-50 transform transition-transform duration-300 ease-in-out lg:hidden ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
                             }`}
                     >
                         <div className="p-6">
@@ -163,7 +163,7 @@ function Dashboard() {
                                 </h2>
                                 <button
                                     onClick={closeMobileMenu}
-                                    className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                                    className="p-2 rounded-md text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700"
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -176,8 +176,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('home')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'home'
-                                            ? 'bg-indigo-50 text-indigo-600'
-                                            : 'text-gray-700 hover:bg-gray-50'
+                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,8 +189,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('transactions')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'transactions'
-                                            ? 'bg-indigo-50 text-indigo-600'
-                                            : 'text-gray-700 hover:bg-gray-50'
+                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -202,8 +202,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('categories')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'categories'
-                                            ? 'bg-indigo-50 text-indigo-600'
-                                            : 'text-gray-700 hover:bg-gray-50'
+                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -215,8 +215,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('settings')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'settings'
-                                            ? 'bg-indigo-50 text-indigo-600'
-                                            : 'text-gray-700 hover:bg-gray-50'
+                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -228,18 +228,18 @@ function Dashboard() {
                             </nav>
 
                             {/* User Info in Drawer */}
-                            <div className="mt-8 pt-6 border-t border-gray-200">
+                            <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                                 <div className="flex items-center space-x-3 px-4 py-2">
-                                    <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center">
-                                        <span className="text-indigo-600 font-semibold text-lg">
+                                    <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-full flex items-center justify-center">
+                                        <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-lg">
                                             {(user?.firstName || user?.email || 'U')[0].toUpperCase()}
                                         </span>
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-gray-900 truncate">
+                                        <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">
                                             {user?.firstName || 'User'}
                                         </p>
-                                        <p className="text-xs text-gray-500 truncate">
+                                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
                                             {user?.email}
                                         </p>
                                     </div>
@@ -251,8 +251,8 @@ function Dashboard() {
                     {/* Main Content */}
                     <div className="lg:col-span-9">
                         {/* Ad Space - Top of content */}
-                        <div className="bg-white border-2 border-dashed border-gray-300 rounded-lg p-4 text-center mb-6">
-                            <p className="text-gray-400 text-sm">Advertisement Space (728x90)</p>
+                        <div className="bg-white dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-4 text-center mb-6">
+                            <p className="text-gray-400 dark:text-gray-500 text-sm">Advertisement Space (728x90)</p>
                         </div>
 
                         {/* Content Area */}

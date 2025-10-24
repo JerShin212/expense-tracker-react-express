@@ -13,7 +13,7 @@ function CategoryPieChart({ data, loading, currency }) {
 
     if (!data || data.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center h-64 text-gray-400">
+            <div className="flex flex-col items-center justify-center h-64 text-gray-400 dark:text-gray-500">
                 <svg className="w-16 h-16 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
@@ -37,17 +37,17 @@ function CategoryPieChart({ data, loading, currency }) {
         if (active && payload && payload.length) {
             const data = payload[0].payload;
             return (
-                <div className="bg-white p-3 rounded-lg shadow-lg border border-gray-200">
-                    <p className="font-semibold text-gray-800 mb-1">
+                <div className="bg-white dark:bg-gray-900 p-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+                    <p className="font-semibold text-gray-800 dark:text-gray-100 mb-1">
                         {data.icon} {data.name}
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                         Amount: <span className="font-medium">{formatCurrency(data.value, currency)}</span>
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                         Transactions: <span className="font-medium">{data.count}</span>
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                         Percentage: <span className="font-medium">{data.percentage}%</span>
                     </p>
                 </div>
@@ -106,10 +106,10 @@ function CategoryPieChart({ data, loading, currency }) {
                             className="w-3 h-3 rounded-full shrink-0"
                             style={{ backgroundColor: item.color }}
                         />
-                        <span className="text-gray-700 truncate">
+                        <span className="text-gray-700 dark:text-gray-200 truncate">
                             {item.icon} {item.name}
                         </span>
-                        <span className="text-gray-500 ml-auto shrink-0">
+                        <span className="text-gray-500 dark:text-gray-400 ml-auto shrink-0">
                             {item.percentage}%
                         </span>
                     </div>
