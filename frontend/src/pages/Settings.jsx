@@ -276,7 +276,7 @@ function Settings() {
                             key={currency.code}
                             className="p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-indigo-300 dark:hover:border-indigo-500 transition"
                         >
-                            <div className="text-2xl mb-1">{currency.flag}</div>
+                            <div className="text-2xl mb-1 dark:text-gray-100">{currency.flag}</div>
                             <div className="text-sm font-medium text-gray-800 dark:text-gray-100">{currency.code}</div>
                             <div className="text-xs text-gray-500 dark:text-gray-400">{currency.symbol}</div>
                         </div>
