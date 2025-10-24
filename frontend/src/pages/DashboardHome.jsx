@@ -7,6 +7,7 @@ import {
     getRecentTransactions,
     getTopCategories
 } from '../services/analyticsService';
+import { createTransaction } from '../services/transactionService';
 import { formatCurrency, getUserCurrency } from '../utils/currencyFormatter';
 import CategoryPieChart from '../components/charts/CategoryPieChart';
 import MonthlyTrendsChart from '../components/charts/MonthlyTrendsChart';
@@ -49,6 +50,7 @@ function DashboardHome() {
     const [topLoading, setTopLoading] = useState(true);
 
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     // Date filter - default to current month
     const [dateFilter, setDateFilter] = useState('month'); // 'month', 'year', 'all'
@@ -184,6 +186,8 @@ function DashboardHome() {
     };
 
     const handleTransactionSubmit = async (transactionData) => {
+        setError('');
+        setSuccess('');
         try {
             await createTransaction(transactionData);
             setSuccess('Transaction added successfully!');
@@ -195,6 +199,7 @@ function DashboardHome() {
             setTimeout(() => setSuccess(''), 3000);
         } catch (err) {
             setError(err.message || 'Failed to add transaction');
+            setSuccess('');
             setTimeout(() => setError(''), 3000);
         }
     };
@@ -209,7 +214,7 @@ function DashboardHome() {
                 </div>
 
                 {/* Date Filter */}
-                <div className="flex bg-white dark:bg-gray-900 rounded-lg shadow-md p-1 border border-gray-200 dark:border-gray-700">
+                <div className="flex bg-white dark:bg-gray-800 rounded-lg shadow-md p-1 border border-gray-200 dark:border-gray-700">
                     <button
                         onClick={() => setDateFilter('month')}
                         className={`px-4 py-2 rounded-md text-sm font-medium transition ${dateFilter === 'month'
@@ -244,6 +249,13 @@ function DashboardHome() {
             {error && (
                 <div className="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 text-red-700 dark:text-red-200 px-4 py-3 rounded-lg">
                     {error}
+                </div>
+            )}
+
+            {/* Success Message */}
+            {success && (
+                <div className="bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 text-green-700 dark:text-green-200 px-4 py-3 rounded-lg">
+                    {success}
                 </div>
             )}
 
@@ -341,13 +353,13 @@ function DashboardHome() {
             {/* Charts Row */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Expense Breakdown */}
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                     <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Expense Breakdown</h2>
                     <CategoryPieChart data={expenseBreakdown} loading={breakdownLoading} currency={currency} />
                 </div>
 
                 {/* Trends Chart - Dynamic */}
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                     <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">{getTrendsTitle()}</h2>
                     <MonthlyTrendsChart
                         data={trendsData}
@@ -361,7 +373,7 @@ function DashboardHome() {
             {/* Bottom Row */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Top Spending Categories */}
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                     <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Top Spending Categories</h2>
                     <TopCategoriesList
                         categories={topExpenses}
@@ -372,7 +384,7 @@ function DashboardHome() {
                 </div>
 
                 {/* Recent Transactions */}
-                <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                     <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Recent Transactions</h2>
                     <RecentTransactionsList
                         transactions={recentTransactions}

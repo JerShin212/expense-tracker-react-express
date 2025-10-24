@@ -4,9 +4,9 @@ function LandingPage({ onGetStarted }) {
     const [showLogin, setShowLogin] = useState(true);
 
     return (
-        <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+        <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
             {/* Navigation */}
-            <nav className="bg-white/95 dark:bg-gray-950/95 backdrop-blur border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 shadow-sm">
+            <nav className="bg-white/95 dark:bg-gray-900/95 backdrop-blur border-b border-gray-200 dark:border-gray-800 sticky top-0 z-50 shadow-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between items-center h-16">
                         <div className="flex items-center">
@@ -88,7 +88,7 @@ function LandingPage({ onGetStarted }) {
 
                         {/* Right Column - Hero Image/Illustration */}
                         <div className="hidden md:block">
-                            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8 transform hover:scale-105 transition duration-300 border border-transparent dark:border-gray-800">
+                            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 transform hover:scale-105 transition duration-300 border border-transparent dark:border-gray-800">
                                 <div className="space-y-4">
                                     <div className="flex items-center justify-between p-4 bg-green-50 dark:bg-green-900/40 rounded-lg">
                                         <span className="text-gray-700 dark:text-gray-200 font-medium">Income</span>
@@ -115,14 +115,14 @@ function LandingPage({ onGetStarted }) {
             {/* Ad Space 1 - Between Hero and Features */}
             <div className="bg-gray-50 dark:bg-gray-900 py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-950 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-8 text-center">
+                    <div className="bg-white dark:bg-gray-800 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-8 text-center">
                         <p className="text-gray-400 dark:text-gray-500 text-sm">Advertisement Space (728x90)</p>
                     </div>
                 </div>
             </div>
 
             {/* Features Section */}
-            <section id="features" className="py-16 md:py-24 bg-white dark:bg-gray-950">
+            <section id="features" className="py-16 md:py-24 bg-white dark:bg-gray-900">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -223,7 +223,7 @@ function LandingPage({ onGetStarted }) {
             </section>
 
             {/* Ad Space 2 - Between sections */}
-            <div className="bg-white dark:bg-gray-950 py-8">
+            <div className="bg-white dark:bg-gray-900 py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="bg-gray-50 dark:bg-gray-900 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-8 text-center">
                         <p className="text-gray-400 dark:text-gray-500 text-sm">Advertisement Space (728x90)</p>
@@ -242,7 +242,7 @@ function LandingPage({ onGetStarted }) {
                     </p>
                     <button
                         onClick={() => onGetStarted(false)}
-                        className="bg-white dark:bg-gray-900 text-indigo-600 dark:text-indigo-300 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-800 transform hover:scale-105 transition duration-200 shadow-xl shadow-indigo-900/40"
+                        className="bg-white dark:bg-gray-800 text-indigo-600 dark:text-indigo-300 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 dark:hover:bg-gray-700 transform hover:scale-105 transition duration-200 shadow-xl shadow-indigo-900/40"
                     >
                         Start Free Today
                     </button>

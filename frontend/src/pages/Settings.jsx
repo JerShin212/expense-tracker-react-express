@@ -155,7 +155,7 @@ function Settings() {
             </div>
 
             {/* Settings Form */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 sm:p-8 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 sm:p-8 border border-gray-200 dark:border-gray-700">
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Account Information Section */}
                     <div>
@@ -190,7 +190,7 @@ function Settings() {
                                     value={formData.firstName}
                                     onChange={handleChange}
                                     maxLength={50}
-                                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
                                     placeholder="John"
                                 />
                             </div>
@@ -207,7 +207,7 @@ function Settings() {
                                     value={formData.lastName}
                                     onChange={handleChange}
                                     maxLength={50}
-                                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
+                                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition"
                                     placeholder="Doe"
                                 />
                             </div>
@@ -229,7 +229,7 @@ function Settings() {
                                 name="currency"
                                 value={formData.currency}
                                 onChange={handleChange}
-                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
+                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
                             >
                                 {currencies.map((currency) => (
                                     <option key={currency.code} value={currency.code}>
@@ -266,7 +266,7 @@ function Settings() {
             </div>
 
             {/* Popular Currencies Quick Reference */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg p-6 sm:p-8 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 sm:p-8 border border-gray-200 dark:border-gray-700">
                 <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
                     Popular Currencies
                 </h2>

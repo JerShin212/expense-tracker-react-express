@@ -308,19 +308,19 @@ function Transactions() {
             <div className="flex flex-wrap gap-2">
                 <button
                     onClick={() => setQuickFilter('month')}
-                    className="px-4 py-2 bg-white dark:bg-gray-900 border-2 border-indigo-600 dark:border-indigo-500/70 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-800 transition duration-200 font-medium text-sm"
+                    className="px-4 py-2 bg-white dark:bg-gray-800 border-2 border-indigo-600 dark:border-indigo-500/70 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-700 transition duration-200 font-medium text-sm"
                 >
                     This Month
                 </button>
                 <button
                     onClick={() => setQuickFilter('year')}
-                    className="px-4 py-2 bg-white dark:bg-gray-900 border-2 border-indigo-600 dark:border-indigo-500/70 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-800 transition duration-200 font-medium text-sm"
+                    className="px-4 py-2 bg-white dark:bg-gray-800 border-2 border-indigo-600 dark:border-indigo-500/70 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-700 transition duration-200 font-medium text-sm"
                 >
                     This Year
                 </button>
                 <button
                     onClick={() => setQuickFilter('all')}
-                    className="px-4 py-2 bg-white dark:bg-gray-900 border-2 border-indigo-600 dark:border-indigo-500/70 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-800 transition duration-200 font-medium text-sm"
+                    className="px-4 py-2 bg-white dark:bg-gray-800 border-2 border-indigo-600 dark:border-indigo-500/70 text-indigo-600 dark:text-indigo-300 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-700 transition duration-200 font-medium text-sm"
                 >
                     All Time
                 </button>
@@ -330,7 +330,7 @@ function Transactions() {
             <TransactionSummary summary={summary} loading={summaryLoading} currency={currency} />
 
             {/* Filters */}
-            <div className="bg-white dark:bg-gray-900 rounded-xl shadow-md p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-4 sm:p-6 border border-gray-200 dark:border-gray-700">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="font-semibold text-gray-800 dark:text-gray-100">Filters</h3>
                     {hasActiveFilters && (
@@ -352,7 +352,7 @@ function Transactions() {
                         <select
                             value={filters.type}
                             onChange={(e) => handleFilterChange('type', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
                         >
                             <option value="all">All Types</option>
                             <option value="expense">Expenses</option>
@@ -368,7 +368,7 @@ function Transactions() {
                         <select
                             value={filters.categoryId}
                             onChange={(e) => handleFilterChange('categoryId', e.target.value)}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
                         >
                             <option value="all">All Categories</option>
                             {categories.map((category) => (
@@ -389,7 +389,7 @@ function Transactions() {
                             value={filters.startDate}
                             onChange={(e) => handleFilterChange('startDate', e.target.value)}
                             max={new Date().toISOString().split('T')[0]}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
                         />
                     </div>
 
@@ -403,7 +403,7 @@ function Transactions() {
                             value={filters.endDate}
                             onChange={(e) => handleFilterChange('endDate', e.target.value)}
                             max={new Date().toISOString().split('T')[0]}
-                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
                         />
                     </div>
                 </div>
@@ -418,7 +418,7 @@ function Transactions() {
                         value={filters.search}
                         onChange={(e) => handleFilterChange('search', e.target.value)}
                         placeholder="Search by description..."
-                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none placeholder-gray-300 dark:placeholder-gray-500"
+                        className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none placeholder-gray-300 dark:placeholder-gray-500"
                     />
                 </div>
             </div>
@@ -432,7 +432,7 @@ function Transactions() {
 
             {/* Empty State */}
             {!loading && transactions.length === 0 && (
-                <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-8 sm:p-12 text-center border border-gray-200 dark:border-gray-700">
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 sm:p-12 text-center border border-gray-200 dark:border-gray-700">
                     <div className="text-6xl mb-4">💳</div>
                     <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">No Transactions Yet</h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-6">

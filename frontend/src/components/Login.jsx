@@ -39,7 +39,7 @@ export default function Login({ onToggle, onBack }) {
                     <p className="text-white/70 text-xs">Advertisement (320x50)</p>
                 </div>
 
-                <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-6 sm:p-8 border border-transparent dark:border-gray-800">
+                <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 sm:p-8 border border-transparent dark:border-gray-800">
                     {/* Back Button */}
                     <button
                         onClick={onBack}
@@ -76,7 +76,7 @@ export default function Login({ onToggle, onBack }) {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition text-base placeholder-gray-300 dark:placeholder-gray-500 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
+                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition text-base placeholder-gray-300 dark:placeholder-gray-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
                                 placeholder="you@example.com"
                             />
                         </div>
@@ -92,7 +92,7 @@ export default function Login({ onToggle, onBack }) {
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition text-base placeholder-gray-300 dark:placeholder-gray-500 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
+                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition text-base placeholder-gray-300 dark:placeholder-gray-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
                                 placeholder="••••••••"
                             />
                         </div>

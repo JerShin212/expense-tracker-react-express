@@ -1,14 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { generateRecurringTransactions } from '../services/recurringService';
 import Categories from '../pages/Categories';
 import Transactions from '../pages/Transactions';
 import Settings from '../pages/Settings';
 import DashboardHome from '../pages/DashboardHome';
+import Budgets from '../pages/Budgets';
+import RecurringTransactions from '../pages/RecurringTransactions';
 
 function Dashboard() {
     const { user, logout } = useAuth();
     const [activeTab, setActiveTab] = useState('home');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // Auto-generate recurring transactions on mount (when user logs in)
+    useEffect(() => {
+        const autoGenerate = async () => {
+            try {
+                // Silently generate recurring transactions in background
+                await generateRecurringTransactions();
+                console.log('✅ Auto-generated recurring transactions');
+            } catch (err) {
+                console.log('ℹ️ No recurring transactions to generate or error:', err.message);
+            }
+        };
+
+        autoGenerate();
+    }, []);
 
     const handleLogout = () => {
         logout();
@@ -89,8 +107,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('home')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'home'
-                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
-                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -102,8 +120,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('transactions')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'transactions'
-                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
-                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -113,10 +131,37 @@ function Dashboard() {
                                 </button>
 
                                 <button
+                                    onClick={() => handleTabChange('budgets')}
+                                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'budgets'
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                        }`}
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span className="font-medium">Budgets</span>
+                                </button>
+
+                                {/* Recurring Transactions */}
+                                <button
+                                    onClick={() => handleTabChange('recurring')}
+                                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'recurring'
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                        }`}
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                    </svg>
+                                    <span className="font-medium">Recurring</span>
+                                </button>
+
+                                <button
                                     onClick={() => handleTabChange('categories')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'categories'
-                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
-                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,8 +173,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('settings')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'settings'
-                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
-                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -176,8 +221,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('home')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'home'
-                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
-                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -189,8 +234,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('transactions')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'transactions'
-                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
-                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,10 +245,36 @@ function Dashboard() {
                                 </button>
 
                                 <button
+                                    onClick={() => handleTabChange('budgets')}
+                                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'budgets'
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                        }`}
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span className="font-medium">Budgets</span>
+                                </button>
+
+                                <button
+                                    onClick={() => handleTabChange('recurring')}
+                                    className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'recurring'
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                        }`}
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span className="font-medium">Recurring</span>
+                                </button>
+
+                                <button
                                     onClick={() => handleTabChange('categories')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'categories'
-                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
-                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -215,8 +286,8 @@ function Dashboard() {
                                 <button
                                     onClick={() => handleTabChange('settings')}
                                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${activeTab === 'settings'
-                                            ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
-                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -258,6 +329,8 @@ function Dashboard() {
                         {/* Content Area */}
                         {activeTab === 'home' && <DashboardHome />}
                         {activeTab === 'transactions' && <Transactions />}
+                        {activeTab === 'budgets' && <Budgets />}
+                        {activeTab === 'recurring' && <RecurringTransactions />}
                         {activeTab === 'categories' && <Categories />}
                         {activeTab === 'settings' && <Settings />}
                     </div>

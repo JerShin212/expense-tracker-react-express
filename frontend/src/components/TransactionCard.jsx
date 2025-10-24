@@ -15,7 +15,7 @@ function TransactionCard({ transaction, onEdit, onDelete, currency }) {
     };
 
     return (
-        <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md hover:shadow-xl transition duration-200 overflow-hidden border border-gray-100 dark:border-gray-800">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition duration-200 overflow-hidden border border-gray-100 dark:border-gray-800">
             <div className="p-5">
                 {/* Header - Icon, Name, Amount */}
                 <div className="flex items-start justify-between mb-3">

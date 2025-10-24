@@ -37,7 +37,7 @@ function CategoryPieChart({ data, loading, currency }) {
         if (active && payload && payload.length) {
             const data = payload[0].payload;
             return (
-                <div className="bg-white dark:bg-gray-900 p-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+                <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
                     <p className="font-semibold text-gray-800 dark:text-gray-100 mb-1">
                         {data.icon} {data.name}
                     </p>

@@ -3,7 +3,7 @@ function CategoryCard({ category, onEdit, onDelete }) {
 
     return (
         <div
-            className="bg-white dark:bg-gray-900 rounded-lg shadow-md hover:shadow-xl transition duration-200 overflow-hidden border border-gray-100 dark:border-gray-800"
+            className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-xl transition duration-200 overflow-hidden border border-gray-100 dark:border-gray-800"
             style={{ borderTop: `4px solid ${category.color}` }}
         >
             <div className="p-5">

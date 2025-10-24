@@ -91,9 +91,9 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
                 {/* Header */}
-                <div className="sticky top-0 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between rounded-t-2xl">
+                <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 flex items-center justify-between rounded-t-2xl">
                     <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100">
                         {transaction ? 'Edit Transaction' : 'New Transaction'}
                     </h2>
@@ -158,7 +158,7 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                                 value={formData.categoryId}
                                 onChange={handleChange}
                                 required
-                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
+                                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
                             >
                                 <option value="">Select a category</option>
                                 {filteredCategories.map((category) => (
@@ -184,7 +184,7 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                             required
                             min="0.01"
                             step="0.01"
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
                             placeholder="0.00"
                         />
                     </div>
@@ -202,7 +202,7 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                             onChange={handleChange}
                             required
                             max={new Date().toISOString().split('T')[0]}
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
                         />
                     </div>
 
@@ -218,7 +218,7 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                             onChange={handleChange}
                             rows="3"
                             maxLength="255"
-                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none placeholder-gray-300 dark:placeholder-gray-500 bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100"
+                            className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none placeholder-gray-300 dark:placeholder-gray-500 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
                             placeholder="Add a note about this transaction..."
                         />
                         <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">

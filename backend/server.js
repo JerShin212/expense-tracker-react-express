@@ -2,6 +2,7 @@ import express, { json, urlencoded } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { sequelize, testConnection } from './config/database.js';
+import { initializeCronJobs } from './services/cronServices.js';
 import testRoutes from './routes/test.js';
 import authRoutes from './routes/auth.js';
 import categoryRoutes from './routes/categories.js';
@@ -9,6 +10,8 @@ import transactionRoutes from './routes/transactions.js';
 import settingsRoutes from './routes/settings.js';
 import analyticsRoutes from './routes/analytics.js';
 import exportRoutes from './routes/export.js';
+import budgetRoutes from './routes/budgets.js';
+import recurringRoutes from './routes/recurring.js'
 
 dotenv.config();
 
@@ -26,6 +29,8 @@ app.use('/api/transactions', transactionRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/export', exportRoutes);
+app.use('/api/budgets', budgetRoutes);
+app.use('/api/recurring', recurringRoutes);
 
 app.get('/', (req, res) => {
     res.json({
@@ -46,7 +51,9 @@ app.get('/', (req, res) => {
             settings: 'GET /api/settings',
             currencies: 'GET /api/settings/currencies',
             analytics: 'GET /api/analytics/summary',
-            export: 'GET /api/export/pdf'
+            export: 'GET /api/export/pdf',
+            budgets: 'GET /api/budgets',
+            recurring: 'GET /api/recurring'
         }
     });
 });
@@ -65,6 +72,8 @@ const startServer = async () => {
         await testConnection();
         await sequelize.sync({ alter: false });
         console.log('Database synchronized successfully.');
+
+        initializeCronJobs();
 
         app.listen(PORT, () => {
             console.log(`Server is running on http://localhost:${PORT}`);

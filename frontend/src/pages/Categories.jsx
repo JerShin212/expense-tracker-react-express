@@ -136,7 +136,7 @@ export default function Categories() {
             )}
 
             {/* Filter Tabs */}
-            <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-2 flex space-x-2 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-2 flex space-x-2 border border-gray-200 dark:border-gray-700">
                 <button
                     onClick={() => setFilter('all')}
                     className={`flex-1 py-2 px-4 rounded-md font-medium transition ${filter === 'all'
@@ -175,7 +175,7 @@ export default function Categories() {
 
             {/* Empty State */}
             {!loading && categories.length === 0 && (
-                <div className="bg-white dark:bg-gray-900 rounded-lg shadow-md p-8 sm:p-12 text-center border border-gray-200 dark:border-gray-700">
+                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 sm:p-12 text-center border border-gray-200 dark:border-gray-700">
                     <div className="text-6xl mb-4">📁</div>
                     <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">No Categories Yet</h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-6">Get started by initializing default categories</p>
