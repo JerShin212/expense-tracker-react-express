@@ -329,7 +329,7 @@ export const getTransactionSummary = async (req, res) => {
         }
 
         const incomeResult = await Transaction.sum('amount', {
-            where: { ...whereClause, type: 'expense' }
+            where: { ...whereClause, type: 'income' }
         });
 
         const expenseResult = await Transaction.sum('amount', {

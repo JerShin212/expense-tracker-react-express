@@ -1,3 +1,5 @@
+import api from "../services/api";
+
 // Currency data with symbols
 const currencyData = {
     USD: { symbol: '$', name: 'US Dollar' },
@@ -44,11 +46,21 @@ export const formatCurrency = (amount, currencyCode = 'USD') => {
     return `${symbol}${parts.join('.')}`;
 };
 
-// Get user's currency from localStorage
-export const getUserCurrency = () => {
+// Get user's currency from localStorage (falling back to settings API once)
+export const getUserCurrency = async () => {
     try {
-        const user = JSON.parse(localStorage.getItem('user'));
-        return user?.currency || 'USD';
+        const storedUser = localStorage.getItem('user');
+        const user = storedUser ? JSON.parse(storedUser) : null;
+
+        if (user?.currency) {
+            return user.currency;
+        }
+
+        const response = await api.get('/settings');
+        const currency = response.data?.data?.currency || 'USD';
+        const updatedUser = { ...(user || {}), currency };
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        return currency;
     } catch {
         return 'USD';
     }

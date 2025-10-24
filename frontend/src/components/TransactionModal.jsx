@@ -218,7 +218,7 @@ function TransactionModal({ transaction, onClose, onSubmit }) {
                             onChange={handleChange}
                             rows="3"
                             maxLength="255"
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none"
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition resize-none placeholder-gray-300"
                             placeholder="Add a note about this transaction..."
                         />
                         <p className="text-xs text-gray-500 mt-1">

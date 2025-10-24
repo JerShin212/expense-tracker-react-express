@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import { formatCurrency, getUserCurrency } from "../utils/currencyFormatter";
 
-function TransactionCard({ transaction, onEdit, onDelete }) {
-    const currency = getUserCurrency();
+function TransactionCard({ transaction, onEdit, onDelete, currency }) {
     const isIncome = transaction.type === 'income';
 
     // Format date

@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
-import { getTransactions, createTransaction, updateTransaction, deleteTransaction, getTransactionSummary } from "../services/transactionService";
-import { getCategories } from "../services/categoryService";
-import TransactionSummary from "../components/TransactionSummary";
-import TransactionCard from "../components/TransactionCard";
-import TransactionModal from "../components/TransactionModal";
-import ConfirmModal from "../components/ConfirmModal";
+import { useState, useEffect } from 'react';
+import { getTransactions, createTransaction, updateTransaction, deleteTransaction, getTransactionSummary } from '../services/transactionService';
+import { getCategories } from '../services/categoryService';
+import { getUserCurrency } from "../utils/currencyFormatter";
+import TransactionSummary from '../components/TransactionSummary';
+import TransactionCard from '../components/TransactionCard';
+import TransactionModal from '../components/TransactionModal';
+import ConfirmModal from '../components/ConfirmModal';
 
 function Transactions() {
     const [transactions, setTransactions] = useState([]);
@@ -15,7 +16,7 @@ function Transactions() {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
-    // Filters
+    // Filters with date range
     const [filters, setFilters] = useState({
         type: 'all',
         categoryId: 'all',
@@ -29,14 +30,45 @@ function Transactions() {
     const [editingTransaction, setEditingTransaction] = useState(null);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [transactionToDelete, setTransactionToDelete] = useState(null);
+    const [currency, setCurrency] = useState('USD');
+
+    useEffect(() => {
+        let isMounted = true;
+
+        const loadCurrency = async () => {
+            const userCurrency = await getUserCurrency();
+            if (isMounted) {
+                setCurrency(userCurrency);
+            }
+        };
+
+        loadCurrency();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
+
+    useEffect(() => {
+        // Set default to current month on first load
+        const today = new Date();
+        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+        setFilters(prev => ({
+            ...prev,
+            startDate: firstDay.toISOString().split('T')[0],
+            endDate: today.toISOString().split('T')[0]
+        }));
+    }, []);
 
     useEffect(() => {
         fetchCategories();
     }, []);
 
     useEffect(() => {
-        fetchTransactions();
-        fetchSummary();
+        if (filters.startDate || filters.endDate || filters.type !== 'all' || filters.categoryId !== 'all' || filters.search) {
+            fetchTransactions();
+            fetchSummary();
+        }
     }, [filters]);
 
     const fetchCategories = async () => {
@@ -92,6 +124,29 @@ function Transactions() {
         });
     };
 
+    const setQuickFilter = (filterType) => {
+        const today = new Date();
+        let startDate, endDate;
+
+        if (filterType === 'month') {
+            startDate = new Date(today.getFullYear(), today.getMonth(), 1);
+            endDate = today;
+        } else if (filterType === 'year') {
+            startDate = new Date(today.getFullYear(), 0, 1);
+            endDate = today;
+        } else {
+            // All time
+            startDate = null;
+            endDate = null;
+        }
+
+        setFilters({
+            ...filters,
+            startDate: startDate ? startDate.toISOString().split('T')[0] : '',
+            endDate: endDate ? endDate.toISOString().split('T')[0] : ''
+        });
+    };
+
     const handleCreateTransaction = () => {
         setEditingTransaction(null);
         setShowModal(true);
@@ -142,20 +197,20 @@ function Transactions() {
     };
 
     const clearFilters = () => {
+        const today = new Date();
+        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
         setFilters({
             type: 'all',
             categoryId: 'all',
             search: '',
-            startDate: '',
-            endDate: ''
+            startDate: firstDay.toISOString().split('T')[0],
+            endDate: today.toISOString().split('T')[0]
         });
     };
 
     const hasActiveFilters = filters.type !== 'all' ||
         filters.categoryId !== 'all' ||
-        filters.search ||
-        filters.startDate ||
-        filters.endDate;
+        filters.search;
 
     return (
         <div className="space-y-6">
@@ -189,8 +244,30 @@ function Transactions() {
                 </div>
             )}
 
+            {/* Quick Date Filters */}
+            <div className="flex flex-wrap gap-2">
+                <button
+                    onClick={() => setQuickFilter('month')}
+                    className="px-4 py-2 bg-white border-2 border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition duration-200 font-medium text-sm"
+                >
+                    This Month
+                </button>
+                <button
+                    onClick={() => setQuickFilter('year')}
+                    className="px-4 py-2 bg-white border-2 border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition duration-200 font-medium text-sm"
+                >
+                    This Year
+                </button>
+                <button
+                    onClick={() => setQuickFilter('all')}
+                    className="px-4 py-2 bg-white border-2 border-indigo-600 text-indigo-600 rounded-lg hover:bg-indigo-50 transition duration-200 font-medium text-sm"
+                >
+                    All Time
+                </button>
+            </div>
+
             {/* Summary Cards */}
-            <TransactionSummary summary={summary} loading={summaryLoading} />
+            <TransactionSummary summary={summary} loading={summaryLoading} currency={currency} />
 
             {/* Filters */}
             <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
@@ -201,7 +278,7 @@ function Transactions() {
                             onClick={clearFilters}
                             className="text-sm text-indigo-600 hover:text-indigo-700 font-medium"
                         >
-                            Clear All
+                            Clear Filters
                         </button>
                     )}
                 </div>
@@ -281,7 +358,7 @@ function Transactions() {
                         value={filters.search}
                         onChange={(e) => handleFilterChange('search', e.target.value)}
                         placeholder="Search by description..."
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none"
+                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none placeholder-gray-300"
                     />
                 </div>
             </div>
@@ -299,7 +376,7 @@ function Transactions() {
                     <div className="text-6xl mb-4">💳</div>
                     <h3 className="text-xl font-semibold text-gray-800 mb-2">No Transactions Yet</h3>
                     <p className="text-gray-600 mb-6">
-                        {hasActiveFilters
+                        {hasActiveFilters || filters.startDate || filters.endDate
                             ? 'No transactions match your filters. Try adjusting your search criteria.'
                             : 'Start tracking your finances by adding your first transaction'}
                     </p>
@@ -329,6 +406,7 @@ function Transactions() {
                                 transaction={transaction}
                                 onEdit={handleEditTransaction}
                                 onDelete={handleDeleteClick}
+                                currency={currency}
                             />
                         ))}
                     </div>

@@ -1,7 +1,6 @@
-import { formatCurrency, getUserCurrency } from "../utils/currencyFormatter";
+import { formatCurrency } from "../utils/currencyFormatter";
 
-function TransactionSummary({ summary, loading }) {
-    const currency = getUserCurrency();
+function TransactionSummary({ summary, loading, currency }) {
 
     if (loading) {
         return (

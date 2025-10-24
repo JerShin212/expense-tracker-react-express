@@ -7,6 +7,7 @@ import authRoutes from './routes/auth.js';
 import categoryRoutes from './routes/categories.js'
 import transactionRoutes from './routes/transactions.js'
 import settingsRoutes from './routes/settings.js'
+import analyticsRoutes from './routes/analytics.js'
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/api/analytics', analyticsRoutes);
 
 app.get('/', (req, res) => {
     res.json({
@@ -40,7 +42,8 @@ app.get('/', (req, res) => {
             transactions: 'GET /api/transactions',
             transactionSummary: 'GET /api/transactions/summary',
             settings: 'GET /api/settings',
-            currencies: 'GET /api/settings/currencies'
+            currencies: 'GET /api/settings/currencies',
+            analytics: 'GET /api/analytics/summary'
         }
     });
 });
